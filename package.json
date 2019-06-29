@@ -1,6 +1,6 @@
 {
   "name": "wyx-utils",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A place to put commonly used utilities",
   "main": "src/index.js",
   "repository": "git@github.com:Yxwww/wyx-utils.git",
