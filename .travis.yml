@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "12"
+env:
+  - JWT_SECRET="5cd42a17-ab8f-4d6b-991a-22476d2a4e92"
+before_script:
+  - yarn
+  - yarn coverage
+after_success:
+  - pip install --user codecov
+  - codecov --file coverage/lcov.info --disable search

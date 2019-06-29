@@ -8,7 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "node src/tests.js"
+    "test": "node src/tests.js",
+    "coverage": "istanbul cover ./src/runTests.js"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "istanbul": "^0.4.5"
+  }
 }
