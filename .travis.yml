@@ -4,9 +4,9 @@ node_js:
 env:
   - CODECOV_TOKEN="5cd42a17-ab8f-4d6b-991a-22476d2a4e92"
 before_script:
-  - yarn
+  - npm install
 script:
-  - yarn coverage
+  - npm run coverage
 after_success:
   - pip install --user codecov
   - codecov --file coverage/lcov.info --disable search
