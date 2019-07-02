@@ -1,5 +1,5 @@
 {
-  "name": "@thissushiguy/wyx-utils",
+  "name": "wyx-utils",
   "version": "0.1.0",
   "description": "A place to put commonly used utilities",
   "main": "src/index.js",

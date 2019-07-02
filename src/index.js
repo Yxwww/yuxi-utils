@@ -1,4 +1,4 @@
-const Queue = require('./src/dsa/Queue');
+const Queue = require('./dsa/Queue');
 
 module.exports = {
   Queue,
