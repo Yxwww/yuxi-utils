@@ -11,7 +11,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "test": "node src/tests.js",
+    "test": "node src/runTests.js",
     "coverage": "istanbul cover ./src/runTests.js"
   },
   "devDependencies": {

@@ -1,3 +1,6 @@
-const context = require('./dsa/Queue.test');
+const contests = [
+  require('./dsa/Queue.test'),
+  require('./number/clipping.test'),
+]
 
-context.run();
+contests.forEach(c => c.run())
