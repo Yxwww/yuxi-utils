@@ -1,10 +1,9 @@
 function delay(duration = 1000) {
   return function delayed(...arg) {
-    return new Promise(res => {
+    return new Promise(resolve => {
       setTimeout(() => {
-        res(...arg);
-      }, duration);
-    });
-  };
+        resolve(...arg)
+      }, duration)
+    })
+  }
 }
-

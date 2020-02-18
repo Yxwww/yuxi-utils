@@ -11,6 +11,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "lint": "eslint src",
     "test": "node src/runTests.js",
     "coverage": "istanbul cover ./src/runTests.js"
   },
