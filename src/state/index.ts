@@ -4,8 +4,9 @@ interface StateController<T> {
   getState: () => T
   update: (newState: Partial<T>) => void
   reset: () => void
+  __createSelector: <K extends keyof T>(key: K) => () => T[K]
 }
-export function createStateControll<T extends GenericObject>(
+export function createStateControl<T extends GenericObject>(
   initialState: T
 ): StateController<T> {
   let state: T = initialState
@@ -15,13 +16,23 @@ export function createStateControll<T extends GenericObject>(
       ...newState,
     }
   }
+  function getState(): T {
+    return { ...state }
+  }
   return {
-    getState(): T {
-      return { ...state }
-    },
+    getState,
     update,
     reset(): void {
       update(initialState)
+    },
+    // experimental
+    /**
+     * Cons:
+     * - original selector was designed to be pure functions
+     * - letting consumer to keep a "selector" leads to memory leak
+     */
+    __createSelector<K extends keyof T>(key: K) {
+      return (): T[K] => getState()[key]
     },
   }
 }
