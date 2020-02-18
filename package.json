@@ -13,6 +13,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "mocha --require sucrase/register --recursive src/**/*.test.ts",
+    "test:watch": "mocha --require sucrase/register --recursive src/**/*.test.ts --watch ",
     "coverage": "c8 npm run test"
   },
   "devDependencies": {
