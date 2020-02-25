@@ -1,4 +1,4 @@
-export function clipping(min: number, max: number, value: value): number {
+export function clipping(min: number, max: number, value: number): number {
   if (value < min) {
     return min
   } else if (value > max) {

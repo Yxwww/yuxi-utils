@@ -1,8 +1,10 @@
 {
   "name": "wyx-utils",
+  "arthor": "Yuxi Wang",
   "version": "0.1.2",
   "description": "A place to put commonly used utilities",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Yxwww/wyx-utils.git"
@@ -14,7 +16,8 @@
     "lint": "eslint src",
     "test": "mocha --require sucrase/register --recursive \"src/**/*.test.ts\"",
     "test:watch": "mocha --require sucrase/register --recursive src/**/*.test.ts --watch ",
-    "coverage": "c8 npm run test"
+    "coverage": "c8 npm run test",
+    "build:publish": "tsc"
   },
   "devDependencies": {
     "@types/mocha": "^7.0.1",

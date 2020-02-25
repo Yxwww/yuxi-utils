@@ -4,7 +4,7 @@
 
 A place to put javascript utilities.
 
-Although, It seems everything will eventually become utility.
+Although, It seems everything eventually becomes a utility.
 
 ## Requirements
 

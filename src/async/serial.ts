@@ -1,7 +1,7 @@
 export function serial() {
   let stack = []
   let started = false
-  const current = 0
+  // const current = 0
 
   function pop() {
     const first = stack[0]
@@ -15,17 +15,17 @@ export function serial() {
     }
     started = true
     while (stack.length !== 0) {
-      const before = new Date()
+      const before = +new Date()
       console.log('stack length', stack.length, stack)
       const fn = pop()
       console.log('fn', fn)
       await fn()
-      console.log('timelapsed: ', new Date() - before)
+      console.log('timelapsed: ', +new Date() - before)
     }
     started = false
   }
 
-  function push(fn) {
+  function push(fn: Function) {
     stack.push(fn)
     start()
   }

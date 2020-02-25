@@ -1,5 +1,1 @@
-import { Queue } from './dsa'
-
-module.exports = {
-  Queue,
-}
+export { createQueue } from './dsa'
