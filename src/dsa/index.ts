@@ -1,1 +1,1 @@
-export { Queue } from './Queue'
+export { Queue } from './queue'
