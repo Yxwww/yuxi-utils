@@ -23,7 +23,6 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'mocha'
   ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
