@@ -1,5 +1,14 @@
 import * as assert from 'assert'
-import { Box, id, fromNullable, noop, tryCatch, track } from './index'
+import { Box, id, fromNullable, noop, tryCatch, compose } from './index'
+
+describe('compose', () => {
+  it('should compose function from right to left together', () => {
+    const add2 = v => v + 2
+    const three = () => 3
+    const threeAdd2 = compose(add2, three)
+    assert.equal(threeAdd2(), 5)
+  })
+})
 
 describe('Box', () => {
   it('should fold correctly', () => {

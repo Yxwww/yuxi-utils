@@ -20,7 +20,7 @@ export function Right(x) {
     fold: (f, g) => g(x),
     // functor
     map: f => Right(f(x)),
-    // monad
+    // monad, chain pass in function that return another monad
     chain: f => f(x),
   }
 }
@@ -55,6 +55,23 @@ export function id(x) {
 export function track(x) {
   console.log('Track: ', x)
   return x
+}
+
+export function compose(...args) {
+  const rightToLeft = args.reverse()
+  return initial => {
+    return rightToLeft.reduce((acc, cur) => {
+      return cur(acc)
+    }, initial)
+  }
+}
+
+export function Task(f) {
+  return {
+    map(g) {
+      return Task(compose(f, g))
+    },
+  }
 }
 
 // eslint-disable-next-line
