@@ -1,7 +1,8 @@
 module.exports = {
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    mocha: true,
   },
   extends: [
     'standard',
@@ -21,9 +22,11 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'mocha'
   ],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off'
-  }
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+  },
 }
