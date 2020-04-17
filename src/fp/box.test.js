@@ -1,5 +1,5 @@
 import * as assert from 'assert'
-import { Box, id, fromNullable, noop } from './index'
+import { Box, id, fromNullable, noop, tryCatch, track } from './index'
 
 describe('Box', () => {
   it('should fold correctly', () => {
@@ -38,5 +38,31 @@ describe('Either', () => {
     findColor('redd').fold(v => {
       assert.equal('#ff0000', v)
     }, noop)
+  })
+})
+
+describe('Using tryCatch with Either', () => {
+  function someSyntask(success) {
+    if (success) {
+      return 200
+    } else {
+      throw new Error('task failed due to:')
+    }
+  }
+
+  it('should handle success case', () => {
+    tryCatch(() => someSyntask(true))
+      .map(v => v + 5)
+      .fold(noop, v => {
+        assert.equal(v, 205)
+      })
+  })
+
+  it('should handle failure', () => {
+    tryCatch(() => someSyntask(false))
+      .map(v => v + 5)
+      .fold(v => {
+        assert.equal(v instanceof Error, true)
+      }, noop)
   })
 })

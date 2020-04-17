@@ -30,9 +30,17 @@ export function Left(x) {
     // foldable
     fold: (f, g) => f(x),
     // functor
-    map: f => Left(f(x)),
+    map: f => Left(x),
     // monad
     chain: f => Left(x),
+  }
+}
+
+export function tryCatch(fn) {
+  try {
+    return Right(fn())
+  } catch (e) {
+    return Left(e)
   }
 }
 
@@ -41,6 +49,11 @@ export function fromNullable(x) {
 }
 
 export function id(x) {
+  return x
+}
+
+export function track(x) {
+  console.log('Track: ', x)
   return x
 }
 
