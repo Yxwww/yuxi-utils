@@ -1,7 +1,7 @@
 {
   "name": "wyx-utils",
   "arthor": "Yuxi Wang",
-  "version": "0.1.4-0",
+  "version": "0.1.4-1",
   "description": "A place to put commonly used utilities",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
