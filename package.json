@@ -14,7 +14,7 @@
   "private": false,
   "scripts": {
     "lint": "eslint src",
-    "test": "mocha --require sucrase/register --recursive src/**/*.test.ts src/**/*.test.js",
+    "test": "mocha --require sucrase/register --recursive src --extension ts",
     "test:watch": "mocha --require sucrase/register --recursive src/**/*.test.ts src/**/*.test.js --watch ",
     "coverage": "c8 npm run test",
     "build:publish": "tsc"

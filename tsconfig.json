@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "declaration": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "lib":["ES2018"]
   }
 }
