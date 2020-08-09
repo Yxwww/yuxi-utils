@@ -6,6 +6,8 @@ env:
 before_script:
   - npm install
 script:
+  - npm run build:esm
+  - npm run build:cjs
   - npm run coverage
 after_success:
   - pip install --user codecov
