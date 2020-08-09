@@ -3,6 +3,10 @@
     "target": "ES6",
     "declaration": true,
     "outDir": "./dist",
-    "lib":["ES2018"]
+    "lib":["ES2018"],
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "module": "esnext"
   }
 }
