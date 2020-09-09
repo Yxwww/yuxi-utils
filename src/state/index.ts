@@ -1,5 +1,5 @@
 import { GenericObject, Dictionary } from '../types'
-import { deleteItemInArray } from '../array'
+import { deleteItemInArrayImmutable } from '../array'
 
 type Subscriber<T> = (arg: T) => void
 interface StateController<T> {
@@ -40,7 +40,7 @@ export function createStateControl<T extends GenericObject>(
         const index = subscribers.indexOf(fn)
         if (index > -1) {
           // does this need to be handled immutably ?
-          subscribers = deleteItemInArray(subscribers, index)
+          subscribers = deleteItemInArrayImmutable(subscribers, index)
         }
       }
     },
