@@ -1,5 +1,5 @@
 import * as assert from 'assert'
-import { createStateControl } from './index'
+import { createStateControl, createStateGenerator } from './index'
 
 it('should create state controller without throwing ', () => {
   const initialState = { initial: 'state' }
@@ -43,5 +43,16 @@ describe('.createSelector', () => {
     store.update(update)
 
     assert.equal(valueOfHelloProp(), update.hello)
+  })
+})
+
+describe('createStateGenerator', () => {
+  it('should create default state', () => {
+    const stateGen = createStateGenerator({ opacity: 1 })
+    assert.deepEqual(stateGen(), { opacity: 1 })
+  })
+  it('should handle state change', () => {
+    const stateGen = createStateGenerator({ opacity: 1 })
+    assert.deepEqual(stateGen({ opacity: 0.5 }), { opacity: 0.5 })
   })
 })

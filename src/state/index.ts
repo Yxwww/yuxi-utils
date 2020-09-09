@@ -1,4 +1,4 @@
-import { GenericObject } from '../types'
+import { GenericObject, Dictionary } from '../types'
 
 interface StateController<T> {
   getState: () => T
@@ -34,5 +34,16 @@ export function createStateControl<T extends GenericObject>(
     __createSelector<K extends keyof T>(key: K) {
       return (): T[K] => getState()[key]
     },
+  }
+}
+
+export function createStateGenerator<T extends Dictionary<any>>(
+  defaultState: T
+) {
+  return function stateGenerator(initialState: Partial<T> = {}) {
+    return {
+      ...defaultState,
+      ...initialState,
+    }
   }
 }
