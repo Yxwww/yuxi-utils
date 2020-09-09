@@ -1,20 +1,28 @@
 import { GenericObject, Dictionary } from '../types'
+import { deleteItemInArray } from '../array'
 
+type Subscriber<T> = (arg: T) => void
 interface StateController<T> {
   getState: () => T
   update: (newState: Partial<T>) => void
   reset: () => void
-  __createSelector: <K extends keyof T>(key: K) => () => T[K]
+  subscribe(sub: Subscriber<T>): () => void
 }
+
+/**
+ * A piece of closure holds state along with utility functions to interact with the state
+ */
 export function createStateControl<T extends GenericObject>(
   initialState: T
 ): StateController<T> {
   let state: T = initialState
+  let subscribers: Subscriber<T>[] = []
   function update(newState: Partial<T>): void {
     state = {
       ...state,
       ...newState,
     }
+    subscribers.forEach(fn => fn(state))
   }
   function getState(): T {
     return { ...state }
@@ -25,14 +33,16 @@ export function createStateControl<T extends GenericObject>(
     reset(): void {
       update(initialState)
     },
-    // experimental
-    /**
-     * Cons:
-     * - original selector was designed to be pure functions
-     * - letting consumer to keep a "selector" leads to memory leak
-     */
-    __createSelector<K extends keyof T>(key: K) {
-      return (): T[K] => getState()[key]
+    subscribe(fn: (arg: T) => void) {
+      subscribers.push(fn)
+      fn(getState())
+      return function unsub() {
+        const index = subscribers.indexOf(fn)
+        if (index > -1) {
+          // does this need to be handled immutably ?
+          subscribers = deleteItemInArray(subscribers, index)
+        }
+      }
     },
   }
 }
