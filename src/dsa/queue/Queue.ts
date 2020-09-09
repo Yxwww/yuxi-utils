@@ -1,4 +1,5 @@
 import { createNode, Node } from './Node'
+import { Maybe } from '../../types'
 
 interface Queue<T> {
   head: Maybe<Node<T>>
