@@ -5,7 +5,7 @@ describe('compose', () => {
   it('should compose function from right to left together', () => {
     const add2 = v => v + 2
     const three = () => 3
-    const threeAdd2 = compose(add2, three)
+    const threeAdd2 = compose(add2, three) as any
     assert.equal(threeAdd2(), 5)
   })
 })

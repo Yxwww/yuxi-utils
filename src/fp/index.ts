@@ -57,9 +57,10 @@ export function track(x) {
   return x
 }
 
-export function compose(...args) {
+// TODO: look into  https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-beta/#variadic-tuple-types
+export function compose(...args: any[]) {
   const rightToLeft = args.reverse()
-  return initial => {
+  return (initial: any) => {
     return rightToLeft.reduce((acc, cur) => {
       return cur(acc)
     }, initial)
