@@ -1,7 +1,7 @@
 {
   "name": "wyx-utils",
   "arthor": "Yuxi Wang",
-  "version": "0.1.6-0",
+  "version": "0.2.0",
   "description": "A place to put commonly used utilities",
   "main": "dist/cjs/index",
   "module": "dist/esm/index",
