@@ -8,6 +8,7 @@ before_script:
 script:
   - npm run build:esm
   - npm run build:cjs
+  - npm run build:typing
   - npm run coverage
 after_success:
   - pip install --user codecov
