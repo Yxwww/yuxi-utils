@@ -1,5 +1,5 @@
 export function serial() {
-  let stack = []
+  let stack: Function[] = []
   let started = false
   // const current = 0
 

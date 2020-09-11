@@ -18,7 +18,7 @@ describe('Queue', () => {
 
     subject.enqueue(expected)
 
-    assert.equal((subject.head as Node<number>).next.value, expected)
+    assert.equal(subject.head?.next?.value, expected)
   })
 
   it('length method should return the length current nodes', () => {
