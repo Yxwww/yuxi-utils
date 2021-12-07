@@ -18,7 +18,7 @@
     "test": "mocha --require sucrase/register --recursive src --extension ts",
     "test:watch": "mocha --require sucrase/register --recursive src/**/*.test.ts src/**/*.test.js --watch ",
     "coverage": "c8 npm run test",
-    "prepublish": "npm run build:typing && npm run build:esm && npm run build:cjs",
+    "prepare": "npm run build:typing && npm run build:esm && npm run build:cjs",
     "build:typing": "tsc --emitDeclarationOnly",
     "build:esm": "tsc --module es2015 --target es5 --outDir dist/esm",
     "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs"
