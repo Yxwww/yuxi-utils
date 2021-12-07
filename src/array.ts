@@ -9,7 +9,7 @@ export function updateObjectInArrayImmutable<T>(
 ) {
   const index = arr.findIndex(predicate)
   if (index === -1) {
-    return
+    return arr
   }
   return [...arr.slice(0, index), updater(arr[index]), ...arr.slice(index + 1)]
 }

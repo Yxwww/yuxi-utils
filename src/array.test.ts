@@ -12,6 +12,29 @@ describe('deleteItemInArray', () => {
 })
 
 describe('updateObjectInArrayImmutable', () => {
+  it('should not update item in array', () => {
+    const arr = [
+      { id: 'a', opacity: 0 },
+      { id: 'b', opacity: 0 },
+    ]
+
+    const result = updateObjectInArrayImmutable(
+      arr,
+      v => v.id === 'not existsed',
+      state => {
+        return {
+          ...state,
+          opacity: 1,
+        }
+      }
+    )
+
+    assert.equal(result, arr)
+    assert.deepEqual(result, [
+      { id: 'a', opacity: 0 },
+      { id: 'b', opacity: 0 },
+    ])
+  })
   it('should update item in array', () => {
     const arr = [
       { id: 'a', opacity: 0 },
@@ -29,6 +52,7 @@ describe('updateObjectInArrayImmutable', () => {
       }
     )
 
+    assert.notEqual(result, arr)
     assert.deepEqual(result, [
       { id: 'a', opacity: 0 },
       { id: 'b', opacity: 1 },
