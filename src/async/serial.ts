@@ -1,5 +1,6 @@
+type Fn = () => void | Promise<void>
 export function serial() {
-  let stack: Function[] = []
+  let stack: Fn[] = []
   let started = false
   // const current = 0
 
@@ -25,7 +26,7 @@ export function serial() {
     started = false
   }
 
-  function push(fn: Function) {
+  function push(fn: Fn) {
     stack.push(fn)
     start()
   }

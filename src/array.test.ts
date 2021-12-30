@@ -2,7 +2,7 @@ import {
   deleteItemInArrayImmutable,
   updateObjectInArrayImmutable,
 } from './array'
-const assert = require('assert').strict
+import { strict as assert } from 'assert'
 
 describe('deleteItemInArray', () => {
   it('should remove item from array by index', () => {
@@ -20,8 +20,8 @@ describe('updateObjectInArrayImmutable', () => {
 
     const result = updateObjectInArrayImmutable(
       arr,
-      v => v.id === 'not existsed',
-      state => {
+      (v) => v.id === 'not existsed',
+      (state) => {
         return {
           ...state,
           opacity: 1,
@@ -43,8 +43,8 @@ describe('updateObjectInArrayImmutable', () => {
 
     const result = updateObjectInArrayImmutable(
       arr,
-      v => v.id === 'b',
-      state => {
+      (v) => v.id === 'b',
+      (state) => {
         return {
           ...state,
           opacity: 1,

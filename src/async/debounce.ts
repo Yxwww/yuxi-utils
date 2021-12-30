@@ -17,13 +17,13 @@ export function convertToDebounce<T extends any[], P>(
       timeout = setTimeout(async () => {
         try {
           const result = await fn(...args)
-          resolves.forEach(res => {
+          resolves.forEach((res) => {
             res(result)
           })
           resolves.length = 0
           rejects.length = 0
         } catch (e) {
-          rejects.forEach(rej => {
+          rejects.forEach((rej) => {
             rej(e)
           })
           resolves.length = 0

@@ -1,5 +1,5 @@
 import { clipping } from './clipping'
-const assert = require('assert').strict
+import { strict as assert } from 'assert'
 
 describe('clipping', () => {
   it('should be able to clip data', () => {

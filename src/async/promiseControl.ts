@@ -6,8 +6,8 @@ export function createPromiseControl<T>(promise: Promise<T>) {
   return {
     subscribe(subscriber: Subscriber<T>): Unsubscriber {
       subscribers.push(subscriber)
-      promise.then(v => {
-        subscribers.forEach(fn => fn(v))
+      promise.then((v) => {
+        subscribers.forEach((fn) => fn(v))
       })
       return () => {
         const index = subscribers.indexOf(subscriber)

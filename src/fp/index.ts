@@ -3,11 +3,11 @@
 export function Box(x) {
   return {
     // foldable
-    fold: f => f(x),
+    fold: (f) => f(x),
     // functor
-    map: f => Box(f(x)),
+    map: (f) => Box(f(x)),
     // monad
-    chain: f => f(x),
+    chain: (f) => f(x),
   }
 }
 
@@ -19,9 +19,9 @@ export function Right(x) {
     // foldable
     fold: (f, g) => g(x),
     // functor
-    map: f => Right(f(x)),
+    map: (f) => Right(f(x)),
     // monad, chain pass in function that return another monad
-    chain: f => f(x),
+    chain: (f) => f(x),
   }
 }
 
@@ -30,9 +30,9 @@ export function Left(x) {
     // foldable
     fold: (f, g) => f(x),
     // functor
-    map: f => Left(x),
+    map: (f) => Left(x),
     // monad
-    chain: f => Left(x),
+    chain: (f) => Left(x),
   }
 }
 

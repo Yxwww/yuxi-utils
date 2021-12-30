@@ -22,7 +22,7 @@ export function createStateControl<T extends GenericObject>(
       ...state,
       ...newState,
     }
-    subscribers.forEach(fn => fn(state))
+    subscribers.forEach((fn) => fn(state))
   }
   function getState(): T {
     return { ...state }

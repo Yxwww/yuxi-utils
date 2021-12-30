@@ -1,6 +1,6 @@
 import { createQueue } from './Queue'
 import { Node } from './Node'
-const assert = require('assert').strict
+import { strict as assert } from 'assert'
 
 describe('Queue', () => {
   it('should create a queue without head, and its length should be 0 when empty', () => {

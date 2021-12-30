@@ -1,6 +1,6 @@
 export class Node<T> {
   value: T
-  next: Node<T> | null
+  next: Node<T> | null // eslint-disable-line no-use-before-define
   constructor(val: T) {
     this.value = val
   }

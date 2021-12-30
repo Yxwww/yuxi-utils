@@ -5,7 +5,7 @@ export function deleteItemInArrayImmutable<T>(arr: T[], index: number) {
 export function updateObjectInArrayImmutable<T>(
   arr: T[],
   predicate: (arg: T) => boolean,
-  updater: (arg: T) => any
+  updater: (arg: T) => void
 ) {
   const index = arr.findIndex(predicate)
   if (index === -1) {

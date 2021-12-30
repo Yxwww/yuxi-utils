@@ -28,7 +28,7 @@ describe('createStateControl', () => {
   describe('.subscribe', () => {
     it('subscribe should emit current state', () => {
       const stateControl = createStateControl({ opacity: 1 })
-      stateControl.subscribe(v => {
+      stateControl.subscribe((v) => {
         assert.deepEqual(v, { opacity: 1 })
       })
     })

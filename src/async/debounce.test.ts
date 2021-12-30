@@ -1,7 +1,7 @@
 import { convertToDebounce } from './debounce'
 import { addAll } from '../math'
 
-const assert = require('assert').strict
+import { strict as assert } from 'assert'
 
 describe('debounce', () => {
   it('should resolve after invoked multiple times', async () => {
