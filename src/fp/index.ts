@@ -8,7 +8,7 @@ export function Box(x) {
     map: (f) => Box(f(x)),
     // monad
     chain: (f) => f(x),
-  }
+  };
 }
 
 // MARK: Either : null checker
@@ -22,7 +22,7 @@ export function Right(x) {
     map: (f) => Right(f(x)),
     // monad, chain pass in function that return another monad
     chain: (f) => f(x),
-  }
+  };
 }
 
 export function Left(x) {
@@ -33,46 +33,46 @@ export function Left(x) {
     map: (f) => Left(x),
     // monad
     chain: (f) => Left(x),
-  }
+  };
 }
 
 export function tryCatch(fn) {
   try {
-    return Right(fn())
+    return Right(fn());
   } catch (e) {
-    return Left(e)
+    return Left(e);
   }
 }
 
 export function fromNullable(x) {
-  return x !== null ? Right(x) : Left(x)
+  return x !== null ? Right(x) : Left(x);
 }
 
 export function id(x) {
-  return x
+  return x;
 }
 
 export function track(x) {
-  console.log('Track: ', x)
-  return x
+  console.log("Track: ", x);
+  return x;
 }
 
 // TODO: look into  https://devblogs.microsoft.com/typescript/announcing-typescript-4-0-beta/#variadic-tuple-types
 export function compose(...args: any[]) {
-  const rightToLeft = args.reverse()
+  const rightToLeft = args.reverse();
   return (initial: any) => {
     return rightToLeft.reduce((acc, cur) => {
-      return cur(acc)
-    }, initial)
-  }
+      return cur(acc);
+    }, initial);
+  };
 }
 
 export function Task(f) {
   return {
     map(g) {
-      return Task(compose(f, g))
+      return Task(compose(f, g));
     },
-  }
+  };
 }
 
 // eslint-disable-next-line

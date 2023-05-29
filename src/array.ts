@@ -14,6 +14,3 @@ export function updateObjectInArrayImmutable<T>(
 
   return [...arr.slice(0, index), updater(arr[index]), ...arr.slice(index + 1)];
 }
-
-/* eslint-disable-next-line */
-export function noop() {}
