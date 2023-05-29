@@ -1,4 +1,10 @@
+/**
+ * globalThis just looks pretty bad. :)
+ */
 function copyHTML(html: string): Promise<void> {
+  if (!globalThis.window) {
+    return Promise.reject(new Error("We are not in browser environment."));
+  }
   return new Promise((res, rej) => {
     if (typeof globalThis.ClipboardItem === "undefined") {
       globalThis.alert(
