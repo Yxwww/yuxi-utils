@@ -1,5 +1,5 @@
 export function deleteItemInArrayImmutable<T>(arr: T[], index: number) {
-  return [...arr.slice(0, index), ...arr.slice(index + 1)]
+  return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }
 
 export function updateObjectInArrayImmutable<T>(
@@ -7,9 +7,13 @@ export function updateObjectInArrayImmutable<T>(
   predicate: (arg: T) => boolean,
   updater: (arg: T) => void
 ) {
-  const index = arr.findIndex(predicate)
+  const index = arr.findIndex(predicate);
   if (index === -1) {
-    return arr
+    return arr;
   }
-  return [...arr.slice(0, index), updater(arr[index]), ...arr.slice(index + 1)]
+
+  return [...arr.slice(0, index), updater(arr[index]), ...arr.slice(index + 1)];
 }
+
+/* eslint-disable-next-line */
+export function noop() {}
