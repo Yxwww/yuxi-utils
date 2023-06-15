@@ -1,4 +1,4 @@
-# wyx-utils
+# yuxi-utils
 
 [![npm version](http://img.shields.io/npm/v/wyx-utils.svg?style=flat)](https://npmjs.org/package/wyx-utils) [![Build Status](https://travis-ci.com/Yxwww/wyx-utils.svg?branch=master)](https://travis-ci.com/Yxwww/wyx-utils) [![codecov](https://codecov.io/gh/Yxwww/wyx-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/Yxwww/wyx-utils)
 
