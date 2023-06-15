@@ -30,6 +30,36 @@ export function forEachBFS(root: Node, cb: (n: Node) => void) {
   } while (queue.head);
 }
 
+/**
+ * Handles each level independently and flush the memory when moving on to the next
+ */
+export function forEachLevel(
+  root: Node,
+  cb: (items: number[], level: number) => void
+) {
+  let currentLevel = createQueue<Node>(root);
+  let nextLevel = createQueue<Node>();
+  let level = 1;
+  let currentLevelItems: number[] = [];
+
+  while (!currentLevel.isEmpty) {
+    const cur = currentLevel.dequeue();
+    if (!cur) break;
+    currentLevelItems.push(cur.val);
+
+    if (cur.left) nextLevel.enqueue(cur.left);
+    if (cur.right) nextLevel.enqueue(cur.right);
+
+    if (currentLevel.isEmpty) {
+      cb(currentLevelItems, level);
+      currentLevelItems = [];
+      level += 1;
+
+      [nextLevel, currentLevel] = [currentLevel, nextLevel];
+    }
+  }
+}
+
 export function toStringBFS(root: Node) {
   let result = "";
   forEachBFS(root, (n) => {

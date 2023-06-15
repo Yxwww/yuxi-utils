@@ -6,6 +6,7 @@ interface Queue<T> {
   enqueue: (val: T) => void;
   length: number;
   dequeue: () => Maybe<T>;
+  isEmpty: boolean;
 }
 
 /**
@@ -37,7 +38,9 @@ export function createQueue<T>(val?: T): Queue<T> {
     get head() {
       return head;
     },
-
+    get isEmpty() {
+      return !head;
+    },
     dequeue() {
       if (!head) {
         return null;

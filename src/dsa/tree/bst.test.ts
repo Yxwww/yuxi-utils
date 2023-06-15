@@ -1,5 +1,5 @@
 import assert from "assert";
-import { Node, toStringBFS, toStringDFS } from "./bst";
+import { Node, toStringBFS, toStringDFS, forEachLevel } from "./bst";
 
 function setupTree() {
   const root = new Node(0);
@@ -19,5 +19,22 @@ describe("BST", () => {
 
   it("toStringDFS", () => {
     assert.equal(toStringDFS(setupTree()), "0, 1, 3, 4, 2, ");
+  });
+});
+
+describe("forEachLevel", () => {
+  it("should work", () => {
+    const tree = setupTree();
+    forEachLevel(tree, (nums, level) => {
+      if (level === 1) {
+        assert.deepEqual(nums, [0]);
+      }
+      if (level === 2) {
+        assert.deepEqual(nums, [1, 2]);
+      }
+      if (level === 3) {
+        assert.deepEqual(nums, [3, 4]);
+      }
+    });
   });
 });
