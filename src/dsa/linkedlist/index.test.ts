@@ -11,7 +11,7 @@ describe("printLinkedList", () => {
 });
 
 describe("reverse", () => {
-  it.only("should work", () => {
+  it("should work", () => {
     assert.equal(toString(reverse(setup())), "3210");
   });
 
