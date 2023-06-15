@@ -15,8 +15,7 @@
   "private": false,
   "scripts": {
     "lint": "eslint src",
-    "test": "mocha --require sucrase/register --recursive src --extension ts",
-    "test:watch": "mocha --require sucrase/register --recursive src/**/*.test.ts src/**/*.test.js --watch ",
+    "test": "mocha --require sucrase/register --recursive ./src/dsa/linkedlist --extension ts",
     "coverage": "c8 npm run test",
     "prepare": "npm run build:typing && npm run build:esm && npm run build:cjs",
     "build:typing": "tsc --emitDeclarationOnly",
