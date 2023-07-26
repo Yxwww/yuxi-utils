@@ -1,5 +1,20 @@
 import assert from "assert";
-import { Node, toStringBFS, toStringDFS, forEachLevel } from "./bst";
+import {
+  Node,
+  toStringBFS,
+  toStringDFS,
+  forEachLevel,
+  toStringInDFS,
+  toStringInDFSStack,
+  minDepth,
+  diameterOfBinaryTree,
+} from "./bst";
+
+/**
+ *    0
+ *  1  2
+ * 3 4
+ */
 
 function setupTree() {
   const root = new Node(0);
@@ -11,6 +26,35 @@ function setupTree() {
   root.left.right = new Node(4);
   return root;
 }
+
+describe("BST", () => {
+  it("toStringBFS", () => {
+    assert.equal(toStringBFS(setupTree()), "0, 1, 2, 3, 4, ");
+  });
+
+  it("toStringDFS", () => {
+    assert.equal(toStringDFS(setupTree()), "0, 1, 3, 4, 2, ");
+  });
+
+  it("toStringInDFSStack", () => {
+    assert.equal(toStringInDFSStack(setupTree()), "3, 1, 4, 0, 2, ");
+  });
+});
+
+describe("BST with recursion", () => {
+  it("toStringPreDFS", () => {
+    assert.equal(toStringBFS(setupTree()), "0, 1, 2, 3, 4, ");
+  });
+  it("toStringInDFS", () => {
+    assert.equal(toStringInDFS(setupTree()), "1,3,4,0,2,");
+  });
+});
+
+describe.skip("diameterOfBinaryTree", () => {
+  it("should work", () => {
+    assert.equal(diameterOfBinaryTree(setupTree()), 5);
+  });
+});
 
 describe("BST", () => {
   it("toStringBFS", () => {

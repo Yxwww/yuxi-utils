@@ -5,4 +5,5 @@ export {
   toStringBFS,
   forEachBFS,
   forEachDFS,
+  forEachLevel,
 } from "./tree/bst";

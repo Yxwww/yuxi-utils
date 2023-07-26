@@ -67,7 +67,6 @@ export function toStringBFS(root: Node) {
   });
   return result;
 }
-
 export function forEachDFS(root: Node, cb: (n: Node) => void) {
   const stack = [root];
   while (stack.length > 0) {
@@ -82,11 +81,95 @@ export function forEachDFS(root: Node, cb: (n: Node) => void) {
     }
   }
 }
-
 export function toStringDFS(root: Node) {
   let result = "";
   forEachDFS(root, (n) => {
     result += `${n.val}, `;
   });
+  return result;
+}
+
+/**
+ * in order traversal with stack instead of recursion
+ */
+function forEachInDFSStack(root: Node | null, cb: (v: Node) => void) {
+  if (!root) return;
+  let current: Node | null = root;
+  const stack: Node[] = [];
+  // eslint-disable-next-line
+  while (true) {
+    if (current) {
+      stack.push(current);
+      current = current.left;
+    } else if (stack.length > 0) {
+      const n = stack.pop();
+      if (!n) break;
+      cb(n);
+      current = n.right;
+    } else {
+      break;
+    }
+  }
+}
+export function diameterOfBinaryTree(root: Node | null): number {
+  let diameter = -Infinity;
+
+  function dfs(node: null | Node) {
+    console.log("n", node?.val);
+    if (!node) return 0;
+    const left = dfs(node.left);
+    const right = dfs(node.right);
+    if (right + left > diameter) {
+      diameter = right + left;
+    }
+    console.log("\t c", node?.val, { left, right });
+    return Math.max(left, right) + 1;
+  }
+
+  dfs(root);
+
+  return diameter;
+}
+
+export function toStringInDFSStack(root: Node) {
+  let result = "";
+  forEachInDFSStack(root, (n) => {
+    result += `${n.val}, `;
+  });
+  return result;
+}
+
+export function forEachPre(n: Node | null, cb: (n: Node) => void) {
+  if (!n) return;
+
+  cb(n);
+  forEachPre(n.left, cb);
+  forEachPre(n.right, cb);
+}
+export function toStringPreDFS(n: Node | null): string {
+  let result = "";
+
+  forEachPre(n, (n) => {
+    result += `${n.val},`;
+  });
+
+  return result;
+}
+
+export function forEachInDFS(n: Node | null, cb: (n: Node) => void) {
+  if (!n) return;
+
+  forEachPre(n.left, cb);
+  cb(n);
+  forEachPre(n.right, cb);
+}
+
+export function toStringInDFS(n: Node | null): string {
+  let result = "";
+
+  forEachInDFS(n, (n) => {
+    result += `${n.val},`;
+  });
+
   return result;
 }
