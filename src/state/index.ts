@@ -1,59 +1,39 @@
-import { GenericObject, Dictionary } from "../types";
-import { deleteItemInArrayImmutable } from "../array";
+import { GenericObject } from '../types'
 
-type Subscriber<T> = (arg: T) => void;
-interface StateControl<T> {
-  getState: () => T;
-  update: (newState: Partial<T>) => void;
-  reset: () => void;
-  subscribe(sub: Subscriber<T>): () => void;
-}
+type Subscriber<T> = (arg: T) => void
+
+type StateUpdateParam<T> = Partial<T> | ((update: T) => T)
 
 /**
  * A piece of closure holds state along with utility functions to interact with the state
  */
-export function createStateControl<T extends GenericObject>(
-  initialState: T
-): StateControl<T> {
-  let state: T = initialState;
-  let subscribers: Subscriber<T>[] = [];
-  function update(newState: Partial<T>): void {
-    state = {
-      ...state,
-      ...newState,
-    };
-    subscribers.forEach((fn) => fn(state));
-  }
-  function getState(): T {
-    return { ...state };
+export function $state<T extends GenericObject>(initialState: T) {
+  const state: T = initialState
+  const subscribers: Subscriber<T>[] = []
+  function update(update: StateUpdateParam<T>): void {
+    if (typeof update === 'function') {
+      Object.assign(state, update(state))
+    } else {
+      Object.assign(state, update)
+    }
+    subscribers.forEach((fn) => fn(state))
   }
   return {
-    getState,
+    get state() {
+      return state
+    },
     update,
     reset(): void {
-      update(initialState);
+      update(initialState)
     },
     subscribe(fn: (arg: T) => void) {
-      subscribers.push(fn);
-      fn(getState());
+      subscribers.push(fn)
       return function unsub() {
-        const index = subscribers.indexOf(fn);
+        const index = subscribers.indexOf(fn)
         if (index > -1) {
-          // does this need to be handled immutably ?
-          subscribers = deleteItemInArrayImmutable(subscribers, index);
+          subscribers.splice(index, 1)
         }
-      };
+      }
     },
-  };
-}
-
-export function createStateGenerator<T extends Dictionary<any>>(
-  defaultState: T
-) {
-  return function stateGenerator(initialState: Partial<T> = {}) {
-    return {
-      ...defaultState,
-      ...initialState,
-    };
-  };
+  }
 }

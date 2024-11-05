@@ -16,6 +16,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "mocha --require sucrase/register --recursive ./src --extension ts",
+    "test:watch": "pnpm test -- --watch",
     "coverage": "c8 npm run test",
     "prepare": "npm run build:typing && npm run build:esm && npm run build:cjs",
     "build:typing": "tsc --emitDeclarationOnly",
@@ -38,6 +39,12 @@
     "url": "https://github.com/Yxwww/wyx-utils/issues"
   },
   "homepage": "https://github.com/Yxwww/wyx-utils#readme",
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "keywords": [
     "utils"
   ]

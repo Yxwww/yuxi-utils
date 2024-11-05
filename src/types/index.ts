@@ -1,5 +1,5 @@
 export interface GenericObject {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 export type Nullable<T> = T | null
