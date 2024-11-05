@@ -1,12 +1,12 @@
-import { GenericObject, Dictionary } from '../types'
-import { deleteItemInArrayImmutable } from '../array'
+import { GenericObject, Dictionary } from "../types";
+import { deleteItemInArrayImmutable } from "../array";
 
-type Subscriber<T> = (arg: T) => void
-interface StateController<T> {
-  getState: () => T
-  update: (newState: Partial<T>) => void
-  reset: () => void
-  subscribe(sub: Subscriber<T>): () => void
+type Subscriber<T> = (arg: T) => void;
+interface StateControl<T> {
+  getState: () => T;
+  update: (newState: Partial<T>) => void;
+  reset: () => void;
+  subscribe(sub: Subscriber<T>): () => void;
 }
 
 /**
@@ -14,37 +14,37 @@ interface StateController<T> {
  */
 export function createStateControl<T extends GenericObject>(
   initialState: T
-): StateController<T> {
-  let state: T = initialState
-  let subscribers: Subscriber<T>[] = []
+): StateControl<T> {
+  let state: T = initialState;
+  let subscribers: Subscriber<T>[] = [];
   function update(newState: Partial<T>): void {
     state = {
       ...state,
       ...newState,
-    }
-    subscribers.forEach((fn) => fn(state))
+    };
+    subscribers.forEach((fn) => fn(state));
   }
   function getState(): T {
-    return { ...state }
+    return { ...state };
   }
   return {
     getState,
     update,
     reset(): void {
-      update(initialState)
+      update(initialState);
     },
     subscribe(fn: (arg: T) => void) {
-      subscribers.push(fn)
-      fn(getState())
+      subscribers.push(fn);
+      fn(getState());
       return function unsub() {
-        const index = subscribers.indexOf(fn)
+        const index = subscribers.indexOf(fn);
         if (index > -1) {
           // does this need to be handled immutably ?
-          subscribers = deleteItemInArrayImmutable(subscribers, index)
+          subscribers = deleteItemInArrayImmutable(subscribers, index);
         }
-      }
+      };
     },
-  }
+  };
 }
 
 export function createStateGenerator<T extends Dictionary<any>>(
@@ -54,6 +54,6 @@ export function createStateGenerator<T extends Dictionary<any>>(
     return {
       ...defaultState,
       ...initialState,
-    }
-  }
+    };
+  };
 }
