@@ -1,16 +1,16 @@
 import * as assert from 'assert'
-import { $state } from './index'
+import { createState } from './index'
 
-describe('createStateControl', () => {
+describe('createState', () => {
   it('should create state controller without throwing ', () => {
     const initialState = { initial: 'state' }
-    assert.deepEqual($state(initialState).state, initialState)
+    assert.deepEqual(createState(initialState).state, initialState)
   })
 
   describe('update', () => {
     it('should update state by passing a new state', () => {
       const update = { status: 'changed' }
-      const s = $state({ status: 'state' })
+      const s = createState({ status: 'state' })
 
       s.update(update)
 
@@ -18,7 +18,7 @@ describe('createStateControl', () => {
     })
 
     it('should update state by using a function', () => {
-      const s = $state({ count: 0 })
+      const s = createState({ count: 0 })
 
       s.update((v) => ({ count: v.count + 1 }))
 
@@ -28,7 +28,7 @@ describe('createStateControl', () => {
 
   it('should reset to initial state', () => {
     const initial = { state: 'initial' }
-    const stateControl = $state(initial)
+    const stateControl = createState(initial)
     stateControl.update({ state: 'changed' })
 
     stateControl.reset()
@@ -37,7 +37,7 @@ describe('createStateControl', () => {
   })
   describe('.subscribe', () => {
     it('subscribe should emit current state', () => {
-      const stateControl = $state({ opacity: 1 })
+      const stateControl = createState({ opacity: 1 })
       stateControl.subscribe((v) => {
         assert.deepEqual(v, { opacity: 1 })
       })
@@ -46,7 +46,7 @@ describe('createStateControl', () => {
     it('should emit value twice if subscription is fired twice ', () => {
       let count = 0
       const emittedValue: unknown[] = []
-      const stateControl = $state({ opacity: 0 })
+      const stateControl = createState({ opacity: 0 })
       stateControl.subscribe((state) => {
         count++
         emittedValue.push(state)
@@ -58,7 +58,7 @@ describe('createStateControl', () => {
 
     it('should not emit more value if subscribe is ', () => {
       let count = 0
-      const state = $state({ opacity: 0 })
+      const state = createState({ opacity: 0 })
       const unsub = state.subscribe(() => {
         count++
       })

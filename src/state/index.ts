@@ -7,9 +7,10 @@ type StateUpdateParam<T> = Partial<T> | ((update: T) => T)
 /**
  * A piece of closure holds state along with utility functions to interact with the state
  */
-export function $state<T extends GenericObject>(initialState: T) {
+export function createState<T extends GenericObject>(initialState: T) {
   const state: T = initialState
   const subscribers: Subscriber<T>[] = []
+
   function update(update: StateUpdateParam<T>): void {
     if (typeof update === 'function') {
       Object.assign(state, update(state))
@@ -18,6 +19,7 @@ export function $state<T extends GenericObject>(initialState: T) {
     }
     subscribers.forEach((fn) => fn(state))
   }
+
   return {
     get state() {
       return state
