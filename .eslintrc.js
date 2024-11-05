@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["yuxi"],
-};
+  extends: ['yuxi'],
+}
