@@ -1,72 +1,71 @@
 import * as assert from 'assert'
-import { createStateControl, createStateGenerator } from './index'
+import { createState } from './index'
 
-describe('createStateControl', () => {
+describe('createState', () => {
   it('should create state controller without throwing ', () => {
     const initialState = { initial: 'state' }
-    assert.deepEqual(createStateControl(initialState).getState(), initialState)
+    assert.deepEqual(createState(initialState).state, initialState)
   })
 
-  it('should update state by passing a new state', () => {
-    const update = { initial: 'changed' }
-    const stateControl = createStateControl({ initial: 'state' })
+  describe('update', () => {
+    it('should update state by passing a new state', () => {
+      const update = { status: 'changed' }
+      const s = createState({ status: 'state' })
 
-    stateControl.update(update)
+      s.update(update)
 
-    assert.deepEqual(stateControl.getState(), update)
+      assert.deepEqual(s.state, update)
+    })
+
+    it('should update state by using a function', () => {
+      const s = createState({ count: 0 })
+
+      s.update((v) => ({ count: v.count + 1 }))
+
+      assert.deepEqual(s.state, { count: 1 })
+    })
   })
 
   it('should reset to initial state', () => {
-    const initial = { initial: 'state' }
-    const stateControl = createStateControl({ initial: 'state' })
-    stateControl.update({ initial: 'changed' })
+    const initial = { state: 'initial' }
+    const stateControl = createState(initial)
+    stateControl.update({ state: 'changed' })
 
     stateControl.reset()
 
-    assert.deepEqual(stateControl.getState(), initial)
+    assert.deepEqual(stateControl.state, initial)
   })
   describe('.subscribe', () => {
     it('subscribe should emit current state', () => {
-      const stateControl = createStateControl({ opacity: 1 })
+      const stateControl = createState({ opacity: 1 })
       stateControl.subscribe((v) => {
         assert.deepEqual(v, { opacity: 1 })
       })
     })
+
     it('should emit value twice if subscription is fired twice ', () => {
       let count = 0
-      const emittedValue: any[] = []
-      const subscriber = (state: any) => {
+      const emittedValue: unknown[] = []
+      const stateControl = createState({ opacity: 0 })
+      stateControl.subscribe((state) => {
         count++
         emittedValue.push(state)
-      }
-      const stateControl = createStateControl({ opacity: 0 })
-      stateControl.subscribe(subscriber)
+      })
       stateControl.update({ opacity: 1 })
-      assert.equal(count, 2)
-      assert.deepEqual(emittedValue, [{ opacity: 0 }, { opacity: 1 }])
+      assert.equal(count, 1)
+      assert.deepEqual(emittedValue, [{ opacity: 1 }])
     })
 
     it('should not emit more value if subscribe is ', () => {
       let count = 0
-      const subscriber = () => {
+      const state = createState({ opacity: 0 })
+      const unsub = state.subscribe(() => {
         count++
-      }
-      const stateControl = createStateControl({ opacity: 0 })
-      const unsub = stateControl.subscribe(subscriber)
+      })
+      state.update({ opacity: 0.5 })
       unsub()
-      stateControl.update({ opacity: 1 })
+      state.update({ opacity: 1 })
       assert.equal(count, 1)
     })
-  })
-})
-
-describe('createStateGenerator', () => {
-  it('should create default state', () => {
-    const stateGen = createStateGenerator({ opacity: 1 })
-    assert.deepEqual(stateGen(), { opacity: 1 })
-  })
-  it('should handle state change', () => {
-    const stateGen = createStateGenerator({ opacity: 1 })
-    assert.deepEqual(stateGen({ opacity: 0.5 }), { opacity: 0.5 })
   })
 })
