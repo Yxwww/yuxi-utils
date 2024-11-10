@@ -1,4 +1,4 @@
-class Node {
+export class Node {
   next: Node | null;
   val: number;
   constructor(v: number) {
