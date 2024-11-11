@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { wait } from './async'
+import { wait } from './wait'
 
 describe('wait', () => {
   it('should wait for the specified time', async () => {
