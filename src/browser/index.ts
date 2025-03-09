@@ -1,1 +1,1 @@
-export { wait, waitForFullFrame, waitFrames } from './async'
+export { copyHTML } from './copy'
