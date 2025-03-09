@@ -5,10 +5,11 @@
  * - classes over closures (prorotype saves memory and works)
  *
  */
-type StateUpdateParam<T> = T | ((update: T) => T)
-type Subscriber<T> = (s: T) => void
 
-export class State<T extends any> {
+import { StateUpdateParam, Subscriber } from './types'
+import { SubscribeControl } from './util'
+
+export class State<T extends any = any> {
   current: T
   private subs = new SubscribeControl()
   constructor(initial: T) {
@@ -27,26 +28,5 @@ export class State<T extends any> {
       this.current = update
     }
     this.subs.broadcast(this.current)
-  }
-}
-
-export class Derive {
-  private subs = new SubscribeControl()
-  constructor() {}
-  add() {}
-  remove() {}
-  subscribe() {}
-}
-
-export class SubscribeControl<T> {
-  subscribers = new Set<Subscriber<T>>()
-  subscribe(fn: Subscriber<T>): () => void {
-    this.subscribers.add(fn)
-    return () => {
-      this.subscribers.delete(fn)
-    }
-  }
-  broadcast(message: T) {
-    this.subscribers.forEach((fn) => fn(message))
   }
 }
