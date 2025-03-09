@@ -15,17 +15,16 @@
   "private": false,
   "scripts": {
     "lint": "eslint src",
-    "test": "vitest",
-    "test:watch": "pnpm test -- --watch",
-    "coverage": "c8 npm run test",
-    "prepare": "npm run build:typing && npm run build:esm && npm run build:cjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "prepare": "pnpm build:typing && pnpm build:esm && pnpm build:cjs",
     "build:typing": "tsc --emitDeclarationOnly",
     "build:esm": "tsc --module es2015 --target es5 --outDir dist/esm",
     "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs"
   },
   "devDependencies": {
     "@types/node": "^17.0.45",
-    "c8": "^7.14.0",
     "eslint": "^8.57.1",
     "husky": "^9.1.6",
     "mocha": "^9.2.2",
