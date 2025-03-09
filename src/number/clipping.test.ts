@@ -1,5 +1,6 @@
 import { clipping } from './clipping'
 import { strict as assert } from 'assert'
+import { describe, it } from 'vitest'
 
 describe('clipping', () => {
   it('should be able to clip data', () => {

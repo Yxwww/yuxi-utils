@@ -1,6 +1,7 @@
 import { createQueue } from './Queue'
 import { Node } from './Node'
 import { strict as assert } from 'assert'
+import { describe, it } from 'vitest'
 
 describe('Queue', () => {
   it('should create a queue without head, and its length should be 0 when empty', () => {

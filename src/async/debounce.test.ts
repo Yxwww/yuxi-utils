@@ -1,5 +1,6 @@
 import { convertToDebounce } from './debounce'
 import { addAll } from '../math'
+import { describe, it } from 'vitest'
 
 import { strict as assert } from 'assert'
 

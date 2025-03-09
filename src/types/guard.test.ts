@@ -1,5 +1,6 @@
 import { isOfType } from './guard'
 import * as assert from 'assert'
+import { describe, it } from 'vitest'
 
 describe('isOfType', () => {
   it('should check union types', () => {

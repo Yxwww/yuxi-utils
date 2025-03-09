@@ -1,5 +1,6 @@
 import * as assert from 'assert'
 import { Box, id, fromNullable, noop, tryCatch, compose } from './index'
+import { describe, it } from 'vitest'
 
 describe('compose', () => {
   it('should compose function from right to left together', () => {

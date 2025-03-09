@@ -1,5 +1,6 @@
 import * as assert from 'assert'
 import { createState } from './index'
+import { describe, it } from 'vitest'
 
 describe('createState', () => {
   it('should create state controller without throwing ', () => {
