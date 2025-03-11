@@ -1,4 +1,4 @@
-import { expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { State } from './state'
 
 it('should create state that is updatable', () => {
@@ -29,4 +29,51 @@ it('should handle unsub', () => {
   state.update(2)
   expect(subscriber).toHaveBeenCalledTimes(0)
   expect(state['subs'].subscribers.size).toBe(0)
+})
+
+describe('object state', () => {
+  it('should handle partial update', () => {
+    const state = new State({
+      name: 'john',
+      age: 12,
+    })
+    const subscriber = vi.fn()
+    state.subscribe(subscriber)
+    expect(subscriber).toHaveBeenCalledTimes(0)
+    state.update({
+      name: 'Sam',
+    })
+    expect(subscriber).toHaveBeenCalledTimes(1)
+    expect(subscriber).toHaveBeenCalledWith({
+      name: 'Sam',
+      age: 12,
+    })
+    expect(state.current).toEqual({
+      name: 'Sam',
+      age: 12,
+    })
+  })
+
+  it('should handle function update', () => {
+    const state = new State({
+      name: 'john',
+      age: 12,
+    })
+    const subscriber = vi.fn()
+    state.subscribe(subscriber)
+    expect(subscriber).toHaveBeenCalledTimes(0)
+    state.update((s) => ({
+      ...s,
+      name: 'Sam',
+    }))
+    expect(subscriber).toHaveBeenCalledTimes(1)
+    expect(subscriber).toHaveBeenCalledWith({
+      name: 'Sam',
+      age: 12,
+    })
+    expect(state.current).toEqual({
+      name: 'Sam',
+      age: 12,
+    })
+  })
 })

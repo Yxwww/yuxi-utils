@@ -5,10 +5,12 @@
  * - classes over closures (prorotype saves memory and works)
  *
  */
-type StateUpdateParam<T> = T | ((update: T) => T)
+type StateUpdateParam<T> = T extends Record<string, any>
+  ? Partial<T> | ((update: T) => T)
+  : T | ((update: T) => T)
 type Subscriber<T> = (s: T) => void
 
-export class State<T extends any> {
+export class State<T> {
   current: T
   private subs = new SubscribeControl()
   constructor(initial: T) {
@@ -23,19 +25,13 @@ export class State<T extends any> {
   update(update: StateUpdateParam<T>): void {
     if (typeof update === 'function') {
       this.current = (update as (v: T) => T)(this.current)
+    } else if (typeof update === 'object' && typeof this.current === 'object') {
+      Object.assign(this.current as object, update)
     } else {
-      this.current = update
+      this.current = update as any
     }
     this.subs.broadcast(this.current)
   }
-}
-
-export class Derive {
-  private subs = new SubscribeControl()
-  constructor() {}
-  add() {}
-  remove() {}
-  subscribe() {}
 }
 
 export class SubscribeControl<T> {
