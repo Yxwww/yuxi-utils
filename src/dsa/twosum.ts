@@ -1,4 +1,5 @@
 import assert from 'assert'
+import { it } from 'vitest'
 
 /**
  * Example 1: 1. Two Sum
@@ -7,25 +8,25 @@ import assert from 'assert'
 
 function twosum(nums: number[], target: number) {
   const result: [number, number][] = []
-  const map = new Map<number, number[]>();
-  for (let i = 0; i< nums.length; i ++) {
-    const cur = nums[i];
-    const need = target - cur;
-    const cached = map.get(need);
+  const map = new Map<number, number[]>()
+  for (let i = 0; i < nums.length; i++) {
+    const cur = nums[i]
+    const need = target - cur
+    const cached = map.get(need)
     if (cached) {
-      const first = cached[0];
-      result.push([first, i]);
-      cached.shift();
-      if (cached.length===0)  {
-        map.delete(need);
+      const first = cached[0]
+      result.push([first, i])
+      cached.shift()
+      if (cached.length === 0) {
+        map.delete(need)
       }
     } else {
-      map.set(cur, [i]);
+      map.set(cur, [i])
     }
   }
   return result
 }
 
 it('twosum should work', () => {
-  assert.deepEqual(twosum([1,2,3], 3), [[0, 1]]);
-});
+  assert.deepEqual(twosum([1, 2, 3], 3), [[0, 1]])
+})

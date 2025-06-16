@@ -3,6 +3,7 @@
  * - avoid copy of any kind
  * - O(1) subscribe and unsub
  * - classes over closures (prorotype saves memory and works)
+ * - only emit on broadcast
  *
  */
 type StateUpdateParam<T> = T extends Record<string, any>
@@ -13,6 +14,7 @@ type Subscriber<T> = (s: T) => void
 export class State<T> {
   current: T
   private subs = new SubscribeControl()
+  dirty?: T extends Record<string, any> ? Partial<T> : T
   constructor(initial: T) {
     this.current = initial
   }
@@ -30,6 +32,8 @@ export class State<T> {
     } else {
       this.current = update as any
     }
+  }
+  broadcast() {
     this.subs.broadcast(this.current)
   }
 }

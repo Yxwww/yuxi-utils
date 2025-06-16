@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES6",
     "declaration": true,
     "outDir": "./dist",
-    "lib": ["ES2018", "DOM"],
+    "skipLibCheck": true,
+    "target": "ES2020",
+    "lib": ["ES2022", "DOM"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "module": "esnext",
     "strictNullChecks": true
-  }
+  },
+  "exclude": ["node_modules", "dist", "coverage"]
 }
