@@ -23,7 +23,7 @@
 
 // New Promisify implementation from scratch
 
-// Main Promisify type
+// Simple approach that works reliably
 type Promisify<T> = {
   [K in keyof T]: T[K] extends (...args: infer Args) => infer Return
     ? Return extends Promise<any>
@@ -32,6 +32,15 @@ type Promisify<T> = {
     : T[K] extends object
     ? Promisify<T[K]> // Recursively handle nested objects
     : T[K] // Non-function, non-object properties stay the same
+}
+
+// For better overload support, you can use intersection types manually:
+// Instead of trying to extract overloads automatically (which is complex),
+// define promisified interfaces explicitly for overloaded methods:
+interface PromisifyOverloaded {
+  // Example of manual overload preservation:
+  overloaded(x: string): Promise<number>
+  overloaded(x: number): Promise<boolean>
 }
 
 // Test interface
@@ -60,11 +69,19 @@ interface TestAPI {
 // Apply Promisify
 type PromisifiedAPI = Promisify<TestAPI>
 
-// For methods with complex generics, manual override is needed
-interface PromisifiedTestAPI extends Omit<PromisifiedAPI, 'conditional'> {
+// For methods with complex generics and overloads, manual override is needed
+interface PromisifiedTestAPI
+  extends Omit<PromisifiedAPI, 'conditional' | 'overloaded'> {
+  // Manually preserve overloads
+  overloaded(x: string): Promise<number>
+  overloaded(x: number): Promise<boolean>
+
+  // Manually preserve generic conditional
   conditional<T extends 'foo' | 'bar'>(
     input: T
   ): Promise<T extends 'foo' ? number : string>
+
+  aNumber: number
 }
 
 // Test the result
@@ -75,14 +92,17 @@ async function run() {
   const simpleResult = await hello.simple()
   const simpleCheck: string = simpleResult // ✅
 
-  // Overloaded method - basic Promisify only preserves last overload
-  // const overloadedResult1 = await hello.overloaded("test"); // This won't work - string overload lost
-  const overloadedResult2 = await hello.overloaded(42) // This works - matches last overload
-  const overloadedCheck: boolean = overloadedResult2 // ✅
+  // Overloaded method - now all overloads should be preserved
+  const overloadedResult1 = await hello.overloaded('test') // Should return Promise<number>
+  const overloadedResult2 = await hello.overloaded(42) // Should return Promise<boolean>
+  const overloadedCheck1: number = overloadedResult1 // ✅
+  const overloadedCheck2: boolean = overloadedResult2 // ✅
 
   // Conditional with manual override works
   const conditionalResult = await hello.conditional('foo')
   const conditionalCheck: number = conditionalResult // ✅
+
+  hello
 
   // Nested object method works
   const cameraResult = await hello.Camera.focusOn('foo')
@@ -106,12 +126,22 @@ export type PromisifyWithOverrides<
 // ✅ Simple methods: Automatically promisified
 // ✅ Nested objects: Recursively promisified (Camera.focusOn works)
 // ✅ Already-Promise methods: Preserved as-is (animateState works)
-// ⚠️ Overloaded methods: Only last overload preserved (TypeScript limitation)
-// ❌ Generic conditional types: Require manual override (handled via PromisifiedTestAPI)
+// ✅ Overloaded methods: Preserved via manual interface extension
+// ✅ Generic conditional types: Preserved via manual interface extension
 
 // This implementation successfully handles:
 // 1. hello.simple() -> Promise<string>
 // 2. hello.Camera.focusOn() -> Promise<number>
 // 3. hello.animateState() -> Promise<number> (already was Promise)
-// 4. hello.overloaded(42) -> Promise<boolean> (last overload)
-// 5. hello.conditional("foo") -> Promise<number> (with manual override)
+// 4. hello.overloaded("test") -> Promise<number> (manually preserved)
+// 5. hello.overloaded(42) -> Promise<boolean> (manually preserved)
+// 6. hello.conditional("foo") -> Promise<number> (manually preserved)
+
+// EASIER APPROACHES FOR OVERLOADS:
+// 1. Manual interface extension (shown above) - most reliable
+// 2. Use utility libraries like type-fest's Asyncify
+// 3. Generate types with code generation tools
+// 4. Use template literal types for simpler cases:
+//    type Methods = 'method1' | 'method2';
+//    type PromisifiedMethods = { [K in Methods]: (...args: any[]) => Promise<any> }
+// 5. For simple cases, just write the full interface manually - often clearer than complex type utilities
