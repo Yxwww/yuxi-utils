@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
+    "composite": true,
     "declaration": true,
-    "outDir": "./dist",
+    "declarationMap": true,
+    "strict": false,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2020",
-    "lib": ["ES2022", "DOM"],
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "module": "esnext",
-    "strictNullChecks": true
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false
   },
-  "exclude": ["node_modules", "dist", "coverage"]
+  "references": [{ "path": "./packages/utils" }]
 }

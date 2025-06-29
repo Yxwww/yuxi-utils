@@ -1,48 +1,31 @@
 {
-  "name": "yuxi-utils",
-  "arthor": "Yuxi Wang",
+  "name": "yuxi-utils-monorepo",
   "version": "0.3.0",
-  "description": "A place to put commonly used utilities",
-  "main": "dist/cjs/index",
-  "module": "dist/esm/index",
-  "types": "dist/index.d.ts",
+  "private": true,
+  "description": "Yuxi utilities monorepo",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Yxwww/wyx-utils.git"
   },
   "author": "Yxwww <yuxi.wangcd@gmail.com>",
   "license": "MIT",
-  "private": false,
   "scripts": {
-    "lint": "eslint src",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
-    "prepare": "pnpm build:typing && pnpm build:esm && pnpm build:cjs",
-    "build:typing": "tsc --emitDeclarationOnly",
-    "build:esm": "tsc --module es2015 --target es5 --outDir dist/esm",
-    "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs"
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "test:watch": "pnpm -r test:watch",
+    "coverage": "pnpm -r coverage",
+    "build": "pnpm -r build:typing && pnpm -r build:esm && pnpm -r build:cjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.7",
     "husky": "^9.1.6",
     "prettier": "^2.8.8",
-    "sucrase": "^3.35.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.0.8",
-    "yuxi-scripts": "^0.0.6"
+    "typescript": "^5.8.3"
   },
-  "bugs": {
-    "url": "https://github.com/Yxwww/wyx-utils/issues"
-  },
-  "homepage": "https://github.com/Yxwww/wyx-utils#readme",
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
     "semi": false,
     "singleQuote": true
-  },
-  "keywords": [
-    "utils"
-  ]
+  }
 }

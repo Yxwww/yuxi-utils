@@ -1,0 +1,1 @@
+export { copyHTML } from './copy'
