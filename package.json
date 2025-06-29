@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "description": "Yuxi utilities monorepo",
+  "packageManager": "pnpm@10.11.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Yxwww/wyx-utils.git"
@@ -10,16 +11,20 @@
   "author": "Yxwww <yuxi.wangcd@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "pnpm -r lint",
-    "test": "pnpm -r test",
-    "test:watch": "pnpm -r test:watch",
-    "coverage": "pnpm -r coverage",
-    "build": "pnpm -r build:typing && pnpm -r build:esm && pnpm -r build:cjs"
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "coverage": "turbo run coverage",
+    "build": "turbo run build:typing build:esm build:cjs",
+    "build:typing": "turbo run build:typing",
+    "build:esm": "turbo run build:esm",
+    "build:cjs": "turbo run build:cjs"
   },
   "devDependencies": {
     "@types/node": "^24.0.7",
     "husky": "^9.1.6",
     "prettier": "^2.8.8",
+    "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   },
   "prettier": {
