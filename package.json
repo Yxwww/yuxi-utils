@@ -24,10 +24,11 @@
     "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs"
   },
   "devDependencies": {
+    "@types/node": "^24.0.7",
     "husky": "^9.1.6",
     "prettier": "^2.8.8",
     "sucrase": "^3.35.0",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "vitest": "^3.0.8",
     "yuxi-scripts": "^0.0.6"
   },
